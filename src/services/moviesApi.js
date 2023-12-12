@@ -4,7 +4,6 @@ axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 
 const ACCESS_KEY = 'fde4dd89a2c817f4c4efb19732e7d4a1';
 const IMG_BASE_URL = 'http://image.tmdb.org/t/p/w500';
-const MOVIES_PER_PAGE = 60;
 
 export async function fetchPopularMovies() {
   const res = await axios.get('trending/movie/day', {
