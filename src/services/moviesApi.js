@@ -38,7 +38,8 @@ export async function fetchCastById(id) {
                                profile_path,
                                name,
                                character,
-                             }) => ({ photo: profile_path ? IMG_BASE_URL + profile_path : null, name, character }));
+                               gender
+                             }) => ({ photo: profile_path ? IMG_BASE_URL + profile_path : null, name, character, gender }));
 }
 
 export async function fetchReviewsById(id) {

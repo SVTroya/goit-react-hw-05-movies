@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchCastById } from '../../services/moviesApi';
+import { CastItem, CastList, ImageWrapper } from './Cast.styled';
+import maleAvatar from '../../images/man.webp'
+import femaleAvatar from '../../images/woman.webp'
 
 export function Cast() {
   const {movieId} = useParams()
@@ -20,14 +23,20 @@ export function Cast() {
   }, [movieId]);
 
   return(
-    <ul>
-      {cast.map(({ name, character, photo }) => (
-        <div>
-          {photo ? <img src={photo} alt={name} width={80}/> : null}
+    <CastList>
+      {cast.map(({ name, character, photo, gender }) => (
+        <CastItem>
+          <ImageWrapper>
+            {/*{photo ? <img src={photo} alt={name}/> : null}*/}
+            <img
+              src={photo ? photo : gender === 1 ? femaleAvatar : maleAvatar}
+              alt={name}
+            />
+          </ImageWrapper>
           <h3>{name}</h3>
-          <p>{character}</p>
-        </div>
+          <p>({character})</p>
+        </CastItem>
       ))}
-    </ul>
+    </CastList>
   )
 }
