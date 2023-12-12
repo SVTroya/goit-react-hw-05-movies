@@ -13,7 +13,7 @@ export async function fetchPopularMovies() {
     },
   });
 
-  return res.data.results.map(({ id, title, poster_path }) => ({ id, title, poster: IMG_BASE_URL + poster_path }));
+  return filterMoviesData(res.data.results);
 }
 
 export async function fetchMovieData(id) {
@@ -24,7 +24,13 @@ export async function fetchMovieData(id) {
   });
   const { title, overview, poster_path, vote_average, genres } = res.data;
 
-  return { title, overview, poster: IMG_BASE_URL + poster_path, score: Math.floor(vote_average * 10), genres };
+  return {
+    title,
+    overview,
+    poster: poster_path ? IMG_BASE_URL + poster_path : null,
+    score: Math.floor(vote_average * 10),
+    genres,
+  };
 }
 
 export async function fetchCastById(id) {
@@ -38,16 +44,42 @@ export async function fetchCastById(id) {
                                profile_path,
                                name,
                                character,
-                               gender
-                             }) => ({ photo: profile_path ? IMG_BASE_URL + profile_path : null, name, character, gender }));
+                               gender,
+                               id,
+                             }) => ({
+    id,
+    photo: profile_path ? IMG_BASE_URL + profile_path : null,
+    name,
+    character,
+    gender,
+  }));
 }
 
 export async function fetchReviewsById(id) {
-  const res = axios.get(`movie/${id}/reviews`, {
+  const res = await axios.get(`movie/${id}/reviews`, {
     params: {
       api_key: ACCESS_KEY,
     },
   });
 
   return res.data?.results;
+}
+
+export async function fetchMoviesByQuery(query) {
+  const res = await axios.get('search/movie', {
+    params: {
+      api_key: ACCESS_KEY,
+      query: query,
+    },
+  });
+
+  return filterMoviesData(res.data.results);
+}
+
+function filterMoviesData(movies) {
+  return movies.map(({ id, title, poster_path }) => ({
+    id,
+    title,
+    poster: poster_path ? IMG_BASE_URL + poster_path : null,
+  }));
 }

@@ -8,7 +8,8 @@ export const StyledMovieDetails = styled.div`
 `;
 
 export const Poster = styled.img`
-border-radius: 8px;
+  background-color: var(--color-card-bckg);
+  border-radius: 8px;
 `;
 
 export const MovieInfoWrapper = styled.div`
@@ -26,6 +27,10 @@ export const MovieInfoWrapper = styled.div`
   h2{
     font-size: 20px;
     font-weight: 500;
+  }
+
+  p{
+    text-align: justify;
   }
 `;
 
@@ -45,5 +50,19 @@ export const StyledMenuLink = styled(NavLink)`
   &.active {
     position: relative;
     color: var(--color-accent);
+  }
+`;
+
+export const BackLink = styled(NavLink)`
+  text-decoration: none;
+  color: var(--color-text-light);
+  font-size: 25px;
+  font-weight: 500;
+  align-self: start;
+
+  transition: color 250ms ease-in-out;
+
+  &:hover, &:focus {
+    color: tomato;
   }
 `;

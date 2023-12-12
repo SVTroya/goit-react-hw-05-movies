@@ -1,18 +1,23 @@
-import { MovieInfoWrapper, MovieMenu, Poster, StyledMenuLink, StyledMovieDetails } from './MovieDetails.styled';
-import { useEffect, useState } from 'react';
+import {
+  BackLink,
+  MovieInfoWrapper,
+  MovieMenu,
+  Poster,
+  StyledMenuLink,
+  StyledMovieDetails,
+} from './MovieDetails.styled';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { fetchMovieData } from '../../services/moviesApi';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
+import movieDefaultImg from '../../images/movie.webp';
 
-export function MovieDetails() {
+function MovieDetails() {
   const { movieId } = useParams();
   const [movieData, setMovieData] = useState({});
 
-  useEffect(() => {
-    async function getData(id) {
-      const data = await fetchMovieData(id);
-      setMovieData(data);
-    }
+  const location = useLocation();
 
+  useEffect(() => {
     try {
       getData(movieId);
     } catch (err) {
@@ -20,10 +25,15 @@ export function MovieDetails() {
     }
   }, [movieId]);
 
+  const getData = useCallback(async (id) => {
+    const data = await fetchMovieData(id);
+    setMovieData(data);
+  }, []);
+
   return (
     <>
       <StyledMovieDetails>
-        <Poster src={movieData.poster} alt={movieData.title} width={300} />
+        <Poster src={movieData.poster ? movieData.poster : movieDefaultImg} alt={movieData.title} width={300} />
         <MovieInfoWrapper>
           <h1>{movieData.title}</h1>
           <p>User score: {movieData.score}%</p>
@@ -33,6 +43,7 @@ export function MovieDetails() {
           <p>{movieData?.genres?.map(genre => genre.name).join(', ')}</p>
         </MovieInfoWrapper>
       </StyledMovieDetails>
+      <BackLink to={location?.state?.from}>&lt;- Go back</BackLink>
       <hr style={{
         width: '100%',
         textAlign: 'center',
@@ -49,3 +60,5 @@ export function MovieDetails() {
     </>
   );
 }
+
+export default MovieDetails

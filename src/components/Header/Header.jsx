@@ -1,7 +1,7 @@
 import { StyledHeader, StyledLink, StyledNavigation } from './Header.styled';
-import { Container } from '../Container/Container';
+import Container from '../Container/Container';
 
-export function Header() {
+function Header() {
   return (
     <StyledHeader>
       <Container>
@@ -13,3 +13,5 @@ export function Header() {
     </StyledHeader>
   );
 }
+
+export default Header

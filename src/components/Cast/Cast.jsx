@@ -1,33 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchCastById } from '../../services/moviesApi';
 import { CastItem, CastList, ImageWrapper } from './Cast.styled';
-import maleAvatar from '../../images/man.webp'
-import femaleAvatar from '../../images/woman.webp'
+import maleAvatar from '../../images/man.webp';
+import femaleAvatar from '../../images/woman.webp';
 
-export function Cast() {
-  const {movieId} = useParams()
-  const [cast, setCast] = useState([])
+function Cast() {
+  const { movieId } = useParams();
+  const [cast, setCast] = useState([]);
+
+  const getData = useCallback(async (id) => {
+    const data = await fetchCastById(id);
+    setCast(data);
+  }, []);
 
   useEffect(() => {
-    async function getData(id) {
-     const data = await fetchCastById(id)
-      setCast(data)
-    }
-    try{
-      getData(movieId)
-    }
-    catch (err) {
+    try {
+      getData(movieId);
+    } catch (err) {
       console.log(err);
     }
   }, [movieId]);
 
-  return(
+  return (
     <CastList>
-      {cast.map(({ name, character, photo, gender }) => (
-        <CastItem>
+      {cast.map(({ name, character, photo, gender, id }) => (
+        <CastItem key={id}>
           <ImageWrapper>
-            {/*{photo ? <img src={photo} alt={name}/> : null}*/}
             <img
               src={photo ? photo : gender === 1 ? femaleAvatar : maleAvatar}
               alt={name}
@@ -38,5 +37,7 @@ export function Cast() {
         </CastItem>
       ))}
     </CastList>
-  )
+  );
 }
+
+export default Cast

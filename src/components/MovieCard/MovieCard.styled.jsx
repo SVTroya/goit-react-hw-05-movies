@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-export const PopularMovieItem = styled.li`
+export const MovieItem = styled.li`
   background-color: var(--color-card-bckg);
   border-radius: 8px;
   height: 440px;

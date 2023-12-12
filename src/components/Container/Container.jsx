@@ -1,9 +1,11 @@
 import { AdaptiveContainer } from './Container.styled';
 
-export function Container({ children }) {
+function Container({ children }) {
   return (
     <AdaptiveContainer>
       {children}
     </AdaptiveContainer>
   );
 }
+
+export default Container
