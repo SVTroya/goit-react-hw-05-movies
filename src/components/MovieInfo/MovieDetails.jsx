@@ -10,6 +10,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { fetchMovieData } from '../../services/moviesApi';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import movieDefaultImg from '../../images/movie.webp';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 
 function MovieDetails() {
   const { movieId } = useParams();
@@ -45,7 +46,7 @@ function MovieDetails() {
           <p>{movieData?.genres?.map(genre => genre.name).join(', ')}</p>
         </MovieInfoWrapper>
       </StyledMovieDetails>
-      <BackLink to={location?.state?.from}>&lt;- Go back</BackLink>
+      <BackLink to={location?.state?.from}><FaArrowLeftLong  /> Go back</BackLink>
       <hr style={{
         width: '100%',
         textAlign: 'center',

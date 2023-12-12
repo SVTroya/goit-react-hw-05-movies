@@ -66,4 +66,8 @@ export const BackLink = styled(NavLink)`
   &:hover, &:focus {
     color: tomato;
   }
+
+  svg{
+    padding-top: 6px;
+  }
 `;
