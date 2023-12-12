@@ -6,7 +6,7 @@ import {
   StyledMenuLink,
   StyledMovieDetails,
 } from './MovieDetails.styled';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { fetchMovieData } from '../../services/moviesApi';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import movieDefaultImg from '../../images/movie.webp';
@@ -49,8 +49,8 @@ function MovieDetails() {
         textAlign: 'center',
       }} />
       <MovieMenu>
-        <StyledMenuLink to='cast'>Cast</StyledMenuLink>
-        <StyledMenuLink to='reviews'>Reviews</StyledMenuLink>
+        <StyledMenuLink to='cast' state={{ from: location?.state?.from }}>Cast</StyledMenuLink>
+        <StyledMenuLink to='reviews' state={{ from: location?.state?.from }}>Reviews</StyledMenuLink>
       </MovieMenu>
       <hr style={{
         width: '100%',
