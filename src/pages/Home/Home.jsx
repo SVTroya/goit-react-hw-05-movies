@@ -2,7 +2,7 @@
 import { PageTitle } from './Home.styled';
 import { useCallback, useEffect, useState } from 'react';
 import { fetchPopularMovies } from '../../services/moviesApi';
-import Movies from '../Movies/Movies';
+import Movies from '../../components/Movies/Movies';
 
 function Home() {
   const [movies, setMovies] = useState([]);

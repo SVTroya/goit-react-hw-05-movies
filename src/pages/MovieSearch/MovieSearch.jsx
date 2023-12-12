@@ -3,7 +3,7 @@ import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { fetchMoviesByQuery } from '../../services/moviesApi';
-import Movies from '../Movies/Movies';
+import Movies from '../../components/Movies/Movies';
 
 function MovieSearch() {
   const [movieNameInput, setMovieNameInput] = useState('');
