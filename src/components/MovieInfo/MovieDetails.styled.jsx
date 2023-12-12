@@ -5,6 +5,7 @@ export const StyledMovieDetails = styled.div`
   display: flex;
   gap: 20px;
   padding: 20px 0;
+  align-self: flex-start;
 `;
 
 export const Poster = styled.img`

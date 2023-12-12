@@ -8,9 +8,13 @@ import femaleAvatar from '../../images/woman.webp';
 function Cast() {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
+  const [showNothingFoundMsg, setShowNothingFoundMsg] = useState(false);
 
   const getData = useCallback(async (id) => {
     const data = await fetchCastById(id);
+    if (data.length === 0) {
+      setShowNothingFoundMsg(true);
+    }
     setCast(data);
   }, []);
 
@@ -23,21 +27,25 @@ function Cast() {
   }, [movieId, getData]);
 
   return (
-    <CastList>
-      {cast.map(({ name, character, photo, gender, id }) => (
-        <CastItem key={id}>
-          <ImageWrapper>
-            <img
-              src={photo ? photo : gender === 1 ? femaleAvatar : maleAvatar}
-              alt={name}
-            />
-          </ImageWrapper>
-          <h3>{name}</h3>
-          <p>({character})</p>
-        </CastItem>
-      ))}
-    </CastList>
+    <>
+      {cast.length > 0 ? (<CastList>
+          {cast.map(({ name, character, photo, gender, id }) => (
+            <CastItem key={id}>
+              <ImageWrapper>
+                <img
+                  src={photo ? photo : gender === 1 ? femaleAvatar : maleAvatar}
+                  alt={name}
+                />
+              </ImageWrapper>
+              <h3>{name}</h3>
+              <p>({character})</p>
+            </CastItem>
+          ))}
+        </CastList>)
+        : null}
+      {showNothingFoundMsg ? <p>Sorry, we don't have information about cast</p> : null}
+    </>
   );
 }
 
-export default Cast
+export default Cast;

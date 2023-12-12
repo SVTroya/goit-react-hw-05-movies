@@ -6,11 +6,15 @@ import { Author, ReviewItem, ReviewsList } from './Reviews.styled';
 function Reviews() {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
+  const [showNothingFoundMsg, setShowNothingFoundMsg] = useState(false);
 
-   const getData = useCallback(async (id) => {
-     const data = await fetchReviewsById(id);
-     setReviews(data);
-     }, []);
+  const getData = useCallback(async (id) => {
+    const data = await fetchReviewsById(id);
+    if (data.length === 0) {
+      setShowNothingFoundMsg(true);
+    }
+    setReviews(data);
+  }, []);
 
   useEffect(() => {
     try {
@@ -31,10 +35,10 @@ function Reviews() {
               </ReviewItem>;
             })}
           </ReviewsList>)
-        : <p> There is no reviews yet</p>
-        }
+        : null}
+      {showNothingFoundMsg ? <p>There is no reviews yet</p> : null}
     </>
   );
 }
 
-export default Reviews
+export default Reviews;

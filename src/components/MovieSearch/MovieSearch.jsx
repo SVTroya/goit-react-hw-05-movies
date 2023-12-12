@@ -57,7 +57,7 @@ function MovieSearch() {
         </button>
       </MovieSearchForm>
       {movies.length > 0 ? <Movies movies={movies} /> : null}
-      {showNothingFoundMsg ? <p>Sorry, we don't now such movie'</p> : null}
+      {showNothingFoundMsg ? <p>Sorry, we don't now such movie</p> : null}
     </>
   );
 }
