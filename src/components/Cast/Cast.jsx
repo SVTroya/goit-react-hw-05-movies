@@ -20,7 +20,7 @@ function Cast() {
     } catch (err) {
       console.log(err);
     }
-  }, [movieId]);
+  }, [movieId, getData]);
 
   return (
     <CastList>

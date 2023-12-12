@@ -13,6 +13,14 @@ function MovieSearch() {
 
   const query = searchParams.get('query') ?? '';
 
+  const getData = useCallback(async (query) => {
+    const data = await fetchMoviesByQuery(query);
+    if (data.length === 0) {
+      setShowNothingFoundMsg(true);
+    }
+    setMovies(data);
+  }, []);
+
   useEffect(() => {
     try {
       if (query.trim()) {
@@ -21,15 +29,7 @@ function MovieSearch() {
     } catch (err) {
       console.log(err);
     }
-  }, [query]);
-
-  const getData = useCallback(async (query) => {
-    const data = await fetchMoviesByQuery(query);
-    if (data.length === 0) {
-      setShowNothingFoundMsg(true);
-    }
-    setMovies(data);
-  }, []);
+  }, [query, getData]);
 
   function handleSearchClick(ev) {
     ev.target.blur();

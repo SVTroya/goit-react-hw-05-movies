@@ -6,6 +6,7 @@ import { Author, ReviewItem, ReviewsList } from './Reviews.styled';
 function Reviews() {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
+
    const getData = useCallback(async (id) => {
      const data = await fetchReviewsById(id);
      setReviews(data);
@@ -17,7 +18,7 @@ function Reviews() {
     } catch (err) {
       console.log(err);
     }
-  }, [movieId]);
+  }, [movieId, getData]);
 
   return (
     <>

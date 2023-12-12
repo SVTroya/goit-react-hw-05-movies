@@ -17,18 +17,20 @@ function MovieDetails() {
 
   const location = useLocation();
 
+  const getData = useCallback(async (id) => {
+    const data = await fetchMovieData(id);
+    setMovieData(data);
+  }, []);
+
   useEffect(() => {
     try {
       getData(movieId);
     } catch (err) {
       console.log(err);
     }
-  }, [movieId]);
+  }, [movieId, getData]);
 
-  const getData = useCallback(async (id) => {
-    const data = await fetchMovieData(id);
-    setMovieData(data);
-  }, []);
+
 
   return (
     <>
