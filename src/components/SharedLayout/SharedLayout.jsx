@@ -11,7 +11,7 @@ export function SharedLayout() {
         <Suspense fallback={<div>Loading...</div>}>
           <Outlet />
         </Suspense>
-      </Container>;
+      </Container>
     </>
   );
 }
